@@ -27,8 +27,11 @@ steps:
 #       acceptance
 
 - task: Docker@2
+  displayName: Push image
   inputs:
     containerRegistry: 'dockerhub'
-    repository: '$(imageName)'
+    repository: 'samjiks/$(imageName)'
     command: 'push'
+    tags: |
+      acceptance
     
