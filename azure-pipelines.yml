@@ -7,6 +7,7 @@ pool:
 variables:
   imageName: 'samjiks/pipelines-javascript-docker'
   dockerHub: 'dockerhub'
+  secondRegistry: 'MyAzureContainerRegistry'
 
 steps:
 - task: Docker@2
@@ -40,3 +41,12 @@ steps:
 #     repository: 'samjiks/pipelines-javascript-docker'
 #     command: 'buildAndPush'
 #     Dockerfile: 'app/Dockerfile'
+
+- task: Docker@2
+  displayName: Push image to Azure Docker
+  inputs:
+    containerRegistry: 'MyAzureContainerRegistry'
+    repository: '$(imageName)'
+    command: 'push'
+    tags: | 
+      latest
