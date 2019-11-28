@@ -8,6 +8,8 @@ variables:
   imageName: 'samjiks/pipelines-javascript-docker'
   dockerHub: 'dockerhub'
   secondRegistry: 'MyAzureContainerRegistry'
+  imageNameForACR: 'pipelines-javascript-docker'
+
 
 steps:
 - task: Docker@2
@@ -46,7 +48,7 @@ steps:
   displayName: Push image to Azure Docker
   inputs:
     containerRegistry: 'MyAzureContainerRegistry'
-    repository: '$(imageName)'
+    repository: '$(imageNameForACR)'
     command: 'push'
     tags: | 
       latest
