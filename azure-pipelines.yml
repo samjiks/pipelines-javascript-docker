@@ -9,12 +9,12 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
-- task: Docker@2
-  displayName: Build and image
-  inputs:
-    repository: $(imageName)
-    command: build
-    Dockerfile: app/Dockerfile
+# - task: Docker@2
+#   displayName: Build and image
+#   inputs:
+#     repository: $(imageName)
+#     command: build
+#     Dockerfile: app/Dockerfile
 
 # - task: Docker@2
 #   displayName: Push image
@@ -30,8 +30,6 @@ steps:
   displayName: Push image
   inputs:
     containerRegistry: 'dockerhub'
-    repository: 'samjiks/$(imageName)'
-    command: 'push'
-    tags: |
-      acceptance
-    
+    repository: 'samjiks/pipelines-javascript-docker'
+    command: 'buildAndPush'
+    Dockerfile: 'app/Dockerfile'
