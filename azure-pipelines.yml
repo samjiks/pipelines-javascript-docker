@@ -5,17 +5,17 @@ pool:
     vmImage: 'Ubuntu-16.04'
 
 variables:
-  imageName: 'samjiks/pipelines-javascript-docker'
+  username: 'samjiks'
+  imageName: 'pipelines-javascript-docker'
   dockerHub: 'dockerhub'
   secondRegistry: 'MyAzureContainerRegistry'
-  imageNameForACR: 'pipelines-javascript-docker'
 
 
 steps:
 - task: Docker@2
   displayName: Build and image
   inputs:
-    repository: $(imageName)
+    repository: $(username)/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
     tags: latest
@@ -31,7 +31,7 @@ steps:
   inputs:
     containerRegistry: |
       $(dockerHub)
-    repository: $(imageName)
+    repository: $(username)/$(imageName)
     command: push
     tags: | 
       latest
@@ -48,7 +48,7 @@ steps:
   displayName: Push image to Azure Docker
   inputs:
     containerRegistry: 'MyAzureContainerRegistry'
-    repository: '$(imageNameForACR)'
+    repository: '$(imageName)'
     command: 'push'
     tags: | 
       latest
