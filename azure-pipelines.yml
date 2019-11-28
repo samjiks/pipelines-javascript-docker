@@ -29,8 +29,6 @@ steps:
       $(dockerHub)
     repository: $(imageName)
     command: push
-    tags: |
-      acceptance
 
 # - task: Docker@2
 #   displayName: Push image
