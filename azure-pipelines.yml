@@ -57,6 +57,7 @@ steps:
   inputs:
     containerRegistry: 'MyAzureContainerRegistry'
     repository: '$(imageName)'
-    command: 'push'
-    tags: | 
-      latest
+    command: 'buildAndPush'
+    dockerfile: '**/Dockerfile'
+    tags: |
+      $(tag)
