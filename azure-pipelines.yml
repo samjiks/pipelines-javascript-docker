@@ -60,4 +60,4 @@ steps:
     command: 'buildAndPush'
     dockerfile: '**/Dockerfile'
     tags: |
-      $(tag)
+      latest
