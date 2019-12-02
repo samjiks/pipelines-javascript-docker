@@ -1,0 +1,39 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: azure-vote-front
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: JavaScript-Docker
+    spec:
+      nodeSelector:
+        "app.kubernetes.io/os": linux
+      containers:
+      - name: pipelines-javascript
+        image: containerregistrysam.azurecr.io/pipelines-javascript-docker:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-vote-front
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: JavaScript-Docker
